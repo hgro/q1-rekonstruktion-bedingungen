@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tippkarten: Bedingungen finden</title>
+<style>
+  :root { --ink:#14202b; --paper:#f4f6f8; --card:#fff; --line:#cbd5de; --accent:#0b5c8a; --accent-soft:#dcebf5; --hi:#f0b429; --hi-soft:#fdf0cf; --ok:#1c7a4e; --ok-soft:#dff2e7; --muted:#4b5a68; --math:"Cambria Math",Cambria,Georgia,serif; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.5 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-family: Georgia, serif; font-size: 28px; line-height: 1.2; margin: 4px 0 6px; }
+  h2 { font-family: Georgia, serif; font-size: 24px; margin: 6px 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  .m { font-family: var(--math); white-space: nowrap; }
+  .list { display: grid; gap: 10px; }
+  .list a { display: flex; gap: 14px; align-items: center; text-decoration: none; color: inherit; background: var(--card); border: 1px solid var(--line); border-left: 8px solid var(--accent); border-radius: 10px; padding: 12px 16px; }
+  .list a:hover, .list a:focus-visible { background: var(--accent-soft); outline: none; }
+  .list b { display: block; font-size: 19px; }
+  .list small { color: var(--muted); font-size: 16px; }
+  .badge { flex: none; min-width: 52px; text-align: center; font-weight: 700; color: #fff; background: var(--accent); border-radius: 8px; padding: 6px 8px; }
+  .back { display: inline-block; margin: 0 0 12px; color: var(--accent); font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .aufg { display: none; }
+  .aufg.show { display: block; }
+  .task { background: var(--card); border: 1px solid var(--line); border-left: 8px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin: 0 0 14px; }
+  .task p { margin: 0 0 6px; } .task p:last-child { margin: 0; }
+  .hilfe { display: none; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 0 0 12px; }
+  .hilfe.on { display: block; }
+  .hilfe .lvl { font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 4px; }
+  .hilfe.l3 { border: 2px solid var(--ok); background: var(--ok-soft); }
+  .hilfe.l3 .lvl { color: var(--ok); }
+  .hilfe p { margin: 0 0 6px; } .hilfe p:last-child { margin-bottom: 0; }
+  .hilfe ul { margin: 4px 0 0; padding-left: 20px; }
+  .hilfe li { margin: 3px 0; }
+  .btn { font: inherit; font-weight: 600; font-size: 18px; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+  .btn:hover { filter: brightness(1.1); }
+  .btn[hidden] { display: none; }
+  .btn.ghost { background: var(--card); color: var(--accent); }
+  .merk { background: var(--hi-soft); border: 2px solid var(--hi); border-radius: 10px; padding: 8px 14px; margin: 0 0 12px; font-size: 17px; }
+  table { border-collapse: collapse; width: 100%; font-size: 16px; margin-top: 6px; }
+  th, td { border: 1px solid var(--line); padding: 5px 8px; text-align: left; vertical-align: top; }
+  th { background: var(--accent-soft); }
+  details { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; font-size: 16px; }
+  summary { cursor: pointer; font-weight: 600; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 15px; background: #eef2f5; padding: 1px 5px; border-radius: 4px; }
+  #links td:first-child { white-space: nowrap; }
+  .end { margin-top: 10px; }
+  button:focus-visible, a:focus-visible, summary:focus-visible { outline: 3px solid var(--hi); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<main>
+
+  <div id="start">
+    <h1>Tippkarten</h1>
+    <p class="lead">Bedingungen finden. Versuchen Sie es zuerst allein und öffnen Sie nur so viele Hilfen, wie Sie brauchen. Wählen Sie Ihre Aufgabe:</p>
+    <nav class="list" aria-label="Aufgaben">
+      <a href="#aufgabe-1"><span class="badge">1</span><span><b>Bedingungen am Graphen</b><small>Hochpunkt H(2 | 6) und Wendepunkt W(0 | 2)</small></span></a>
+      <a href="#aufgabe-2"><span class="badge">2</span><span><b>Allgemein formulieren</b><small>x₀ und y₀ statt Zahlen, Anzahl der Bedingungen</small></span></a>
+      <a href="#aufgabe-3"><span class="badge">3</span><span><b>Tabelle „Eigenschaft → Bedingung“</b><small>Erklär-Tandem, Tipps zu jeder Zeile</small></span></a>
+      <a href="#aufgabe-4a"><span class="badge">4a</span><span><b>Neuer Graph: Bedingungen notieren</b><small>Hochpunkt im Ursprung, Tiefpunkt T(2 | −4)</small></span></a>
+      <a href="#aufgabe-4b"><span class="badge">4b</span><span><b>Reichen die Bedingungen?</b><small>Anzahl und Grad</small></span></a>
+      <a href="#aufgabe-5"><span class="badge">5</span><span><b>Zusatz: Noch ein Graph</b><small>Berührpunkt, y-Achse, Hochpunkt</small></span></a>
+    </nav>
+    <details>
+      <summary>Für Lehrkräfte: Verweise für QR-Codes</summary>
+      <p>Hängen Sie den Verweis an die Adresse dieser Seite an, zum Beispiel <code>…/Tippkarten#aufgabe-3</code>. Mit <code>-hilfe-1</code> bis <code>-hilfe-3</code> öffnet die Seite die Hilfen bis zu dieser Stufe.</p>
+      <table id="links"><tr><th>Verweis</th><th>Zeigt</th></tr>
+        <tr><td><code>#aufgabe-1</code></td><td>Aufgabe 1</td></tr>
+        <tr><td><code>#aufgabe-2</code></td><td>Aufgabe 2</td></tr>
+        <tr><td><code>#aufgabe-3</code></td><td>Aufgabe 3 (Tabelle, Tandem)</td></tr>
+        <tr><td><code>#aufgabe-4a</code></td><td>Aufgabe 4a</td></tr>
+        <tr><td><code>#aufgabe-4b</code></td><td>Aufgabe 4b</td></tr>
+        <tr><td><code>#aufgabe-5</code></td><td>Aufgabe 5 (Zusatz)</td></tr>
+        <tr><td><code>#aufgabe-3-hilfe-2</code></td><td>Beispiel: Aufgabe 3, Hilfen 1 und 2 schon offen</td></tr>
+      </table>
+    </details>
+  </div>
+
+  <!-- Aufgabe 1 -->
+  <section class="aufg" id="aufgabe-1" aria-labelledby="h-1">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-1">Aufgabe 1: Bedingungen am Graphen</h2>
+    <div class="task"><p>Der Graph gehört zu einer ganzrationalen Funktion <span class="m">f</span> dritten Grades mit einem Hochpunkt <span class="m">H(2 | 6)</span> und einem Wendepunkt <span class="m">W(0 | 2)</span>. Markieren Sie beide Punkte und notieren Sie die Bedingungen für <span class="m">f</span>, <span class="m">f′</span> und <span class="m">f″</span>.</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Lesen Sie <span class="m">H</span> und <span class="m">W</span> am Graphen ab und markieren Sie beide Punkte.</p><p><b>Merkhilfe:</b> <span class="m">f</span> sagt etwas über die Höhe, <span class="m">f′</span> über die Steigung, <span class="m">f″</span> über die Krümmung.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2</p><p>Ein <b>Hochpunkt</b> hat zwei Eigenschaften: Er liegt auf dem Graphen (Höhe 6), und die Tangente ist dort waagerecht (Steigung 0).</p><p>Ein <b>Wendepunkt</b> liegt auf dem Graphen, und die Krümmung ist dort 0.</p></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p><p><span class="m">H(2 | 6)</span>: <span class="m">f(2) = 6</span> und <span class="m">f′(2) = 0</span></p><p><span class="m">W(0 | 2)</span>: <span class="m">f(0) = 2</span> und <span class="m">f″(0) = 0</span></p></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+  </section>
+
+  <!-- Aufgabe 2 -->
+  <section class="aufg" id="aufgabe-2" aria-labelledby="h-2">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-2">Aufgabe 2: Allgemein formulieren</h2>
+    <div class="task"><p>Übertragen Sie Ihre Ergebnisse in allgemeiner Form in die Tabelle „Eigenschaft → Bedingung“. Statt <span class="m">H(2 | 6)</span> schreiben Sie <span class="m">H(x₀ | y₀)</span>. Tragen Sie auch die Anzahl der Bedingungen ein.</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Die Zahlen werden zu Platzhaltern: aus <span class="m">(2 | 6)</span> wird <span class="m">(x₀ | y₀)</span>. Die Form der Bedingungen bleibt gleich.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2</p><p>Schreiben Sie Ihre Bedingungen aus Aufgabe 1 noch einmal auf. Setzen Sie <span class="m">x₀</span> statt 2 beziehungsweise 0 und <span class="m">y₀</span> statt 6 beziehungsweise 2. Zählen Sie, wie viele Bedingungen jede Eigenschaft liefert.</p></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p>
+      <table><tr><th>Eigenschaft</th><th>Bedingung(en)</th><th>Anzahl</th></tr>
+      <tr><td>Hochpunkt <span class="m">H(x₀ | y₀)</span> oder Tiefpunkt <span class="m">T(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀ und f′(x₀) = 0</td><td>2</td></tr>
+      <tr><td>Wendepunkt <span class="m">W(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀ und f″(x₀) = 0</td><td>2</td></tr></table></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+  </section>
+
+  <!-- Aufgabe 3 -->
+  <section class="aufg" id="aufgabe-3" aria-labelledby="h-3">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-3">Aufgabe 3: Tabelle „Eigenschaft → Bedingung“</h2>
+    <div class="task"><p>Ergänzen Sie die übrigen Zeilen der Tabelle, zuerst allein. Danach erklären Sie sich abwechselnd Ihre Zeilen, begründen und korrigieren die Tabelle.</p><p><b>Partner A:</b> von „Schnittpunkt mit der y-Achse“ bis „Hochpunkt oder Tiefpunkt“. <b>Partner B:</b> von „Graph berührt die x-Achse“ bis „Sattelpunkt“.</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Fragen Sie sich bei jeder Zeile: Geht es um die <b>Höhe</b> (<span class="m">f</span>), die <b>Steigung</b> (<span class="m">f′</span>) oder die <b>Krümmung</b> (<span class="m">f″</span>)?</p><p>Zerlegen Sie die Eigenschaft in ihre Teile. So viele Teile, so viele Bedingungen.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2: Tipps zu den Zeilen</p><ul>
+      <li><b>Schnittpunkt mit der y-Achse:</b> Die Stelle ist 0, der y-Wert ist gegeben.</li>
+      <li><b>Nullstelle:</b> Der Funktionswert ist 0.</li>
+      <li><b>Steigung <span class="m">m</span> an der Stelle <span class="m">x₀</span>:</b> Die Steigung gehört zu <span class="m">f′</span>.</li>
+      <li><b>Waagerechte Tangente:</b> Die Steigung ist 0.</li>
+      <li><b>Extremstelle:</b> Dort ist die Tangente waagerecht.</li>
+      <li><b>Hochpunkt oder Tiefpunkt:</b> Punkt auf dem Graphen plus waagerechte Tangente.</li>
+      <li><b>Graph berührt die x-Achse:</b> Nullstelle plus waagerechte Tangente.</li>
+      <li><b>Tangente mit Steigung <span class="m">m</span> im Punkt <span class="m">P</span>:</b> Punkt auf dem Graphen plus Steigung <span class="m">m</span>.</li>
+      <li><b>Wendestelle:</b> Die Krümmung ist 0. Ein y-Wert ist nicht gegeben.</li>
+      <li><b>Wendetangente:</b> Wendepunkt plus Steigung <span class="m">m</span>.</li>
+      <li><b>Sattelpunkt:</b> Wendepunkt mit waagerechter Tangente.</li></ul></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p>
+      <table><tr><th>Eigenschaft</th><th>Bedingung(en)</th><th>Anzahl</th></tr>
+      <tr><td>Schnittpunkt mit der y-Achse <span class="m">(0 | y₀)</span></td><td class="m">f(0) = y₀</td><td>1</td></tr>
+      <tr><td>Nullstelle bei <span class="m">x₀</span></td><td class="m">f(x₀) = 0</td><td>1</td></tr>
+      <tr><td>Steigung <span class="m">m</span> an der Stelle <span class="m">x₀</span></td><td class="m">f′(x₀) = m</td><td>1</td></tr>
+      <tr><td>Waagerechte Tangente bei <span class="m">x₀</span></td><td class="m">f′(x₀) = 0</td><td>1</td></tr>
+      <tr><td>Extremstelle bei <span class="m">x₀</span></td><td class="m">f′(x₀) = 0</td><td>1</td></tr>
+      <tr><td>Hochpunkt <span class="m">H(x₀ | y₀)</span> oder Tiefpunkt <span class="m">T(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀ und f′(x₀) = 0</td><td>2</td></tr>
+      <tr><td>Graph berührt die x-Achse bei <span class="m">x₀</span></td><td class="m">f(x₀) = 0 und f′(x₀) = 0</td><td>2</td></tr>
+      <tr><td>Tangente mit Steigung <span class="m">m</span> im Punkt <span class="m">P(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀ und f′(x₀) = m</td><td>2</td></tr>
+      <tr><td>Wendestelle bei <span class="m">x₀</span></td><td class="m">f″(x₀) = 0</td><td>1</td></tr>
+      <tr><td>Wendepunkt <span class="m">W(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀ und f″(x₀) = 0</td><td>2</td></tr>
+      <tr><td>Wendetangente mit Steigung <span class="m">m</span> in <span class="m">W(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀, f″(x₀) = 0, f′(x₀) = m</td><td>3</td></tr>
+      <tr><td>Sattelpunkt <span class="m">S(x₀ | y₀)</span></td><td class="m">f(x₀) = y₀, f′(x₀) = 0, f″(x₀) = 0</td><td>3</td></tr></table></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+  </section>
+
+  <!-- Aufgabe 4a -->
+  <section class="aufg" id="aufgabe-4a" aria-labelledby="h-4a">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-4a">Aufgabe 4a: Bedingungen notieren</h2>
+    <div class="task"><p>Der Graph gehört zu einer ganzrationalen Funktion <span class="m">g</span> dritten Grades. Er hat einen Hochpunkt im Ursprung <span class="m">O(0 | 0)</span> und einen Tiefpunkt <span class="m">T(2 | −4)</span>. Notieren Sie alle Bedingungen für <span class="m">g</span>, <span class="m">g′</span> und <span class="m">g″</span>.</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Lesen Sie die beiden Punkte ab. <b>Merkhilfe:</b> <span class="m">g</span> sagt etwas über die Höhe, <span class="m">g′</span> über die Steigung, <span class="m">g″</span> über die Krümmung.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2</p><p>Ein Hochpunkt und ein Tiefpunkt liefern je <b>zwei</b> Bedingungen: Der Punkt liegt auf dem Graphen, und die Tangente ist waagerecht.</p><p>Der Ursprung ist hier Punkt <b>und</b> Hochpunkt zugleich. Notieren Sie beide Bedingungen dazu.</p></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p><p><span class="m">g(0) = 0</span> und <span class="m">g′(0) = 0</span></p><p><span class="m">g(2) = −4</span> und <span class="m">g′(2) = 0</span></p></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+    <p class="end"><a class="back" href="#aufgabe-4b">Weiter zu 4b →</a></p>
+  </section>
+
+  <!-- Aufgabe 4b -->
+  <section class="aufg" id="aufgabe-4b" aria-labelledby="h-4b">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-4b">Aufgabe 4b: Reicht das?</h2>
+    <div class="task"><p>Wie viele Bedingungen haben Sie? Reicht das für eine Funktion dritten Grades?</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Zählen Sie Ihre Bedingungen aus Aufgabe 4a.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2</p><p>Wie lautet die allgemeine Funktionsgleichung dritten Grades? Wie viele Koeffizienten (<span class="m">a, b, c, …</span>) hat sie? Für jeden Koeffizienten brauchen Sie eine Bedingung.</p></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p><p>Es sind 4 Bedingungen. Grad 3 hat 4 Koeffizienten (<span class="m">a, b, c, d</span>). Das <b>reicht</b>.</p><p>Allgemein: Grad <span class="m">n</span> hat <span class="m">n + 1</span> Koeffizienten, also braucht man mindestens <span class="m">n + 1</span> Bedingungen.</p></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+  </section>
+
+  <!-- Aufgabe 5 -->
+  <section class="aufg" id="aufgabe-5" aria-labelledby="h-5">
+    <a class="back" href="#">← Alle Aufgaben</a>
+    <h2 id="h-5">Aufgabe 5 (Zusatz): Noch ein Graph</h2>
+    <div class="task"><p>Der Graph einer ganzrationalen Funktion <span class="m">h</span> dritten Grades berührt die x-Achse bei <span class="m">x = 1</span>, schneidet die y-Achse bei <span class="m">2</span> und hat bei <span class="m">x = −1</span> einen Hochpunkt. Notieren Sie die Bedingungen.</p></div>
+    <div class="hilfe" data-lvl="1"><p class="lvl">Hilfe 1</p><p>Übersetzen Sie jede Angabe einzeln. Nutzen Sie Ihre Tabelle aus Aufgabe 3.</p></div>
+    <div class="hilfe" data-lvl="2"><p class="lvl">Hilfe 2</p><ul><li>„berührt die x-Achse bei 1“: Nullstelle plus waagerechte Tangente</li><li>„schneidet die y-Achse bei 2“: ein Punkt auf dem Graphen</li><li>„Hochpunkt bei <span class="m">x = −1</span>“: nur die Stelle ist bekannt, also nur die waagerechte Tangente</li></ul></div>
+    <div class="hilfe l3" data-lvl="3"><p class="lvl">Hilfe 3: Lösung zum Vergleichen</p><p><span class="m">h(1) = 0</span>, <span class="m">h′(1) = 0</span>, <span class="m">h(0) = 2</span>, <span class="m">h′(−1) = 0</span></p><p>Das sind 4 Bedingungen. Das reicht für Grad 3.</p></div>
+    <button class="btn" type="button">Hilfe 1 anzeigen</button>
+  </section>
+
+</main>
+<script>
+(function () {
+  "use strict";
+  var start = document.getElementById("start");
+  var sections = Array.prototype.slice.call(document.querySelectorAll(".aufg"));
+  var current = null;
+
+  function setLevel(sec, n) {
+    var hs = sec.querySelectorAll(".hilfe"), btn = sec.querySelector(".btn");
+    Array.prototype.forEach.call(hs, function (h) {
+      h.classList.toggle("on", parseInt(h.getAttribute("data-lvl"), 10) <= n);
+    });
+    sec.setAttribute("data-level", String(n));
+    if (n >= 3) { btn.hidden = true; }
+    else { btn.hidden = false; btn.textContent = n === 2 ? "Hilfe 3 anzeigen (Lösung)" : "Hilfe " + (n + 1) + " anzeigen"; }
+  }
+
+  function route() {
+    var m = /^#(aufgabe-[0-9a-z]+?)(?:-hilfe-([1-3]))?$/.exec(location.hash || "");
+    var sec = m ? document.getElementById(m[1]) : null;
+    sections.forEach(function (s) { s.classList.remove("show"); });
+    if (!sec || sections.indexOf(sec) < 0) { start.style.display = ""; current = null; document.title = "Tippkarten: Bedingungen finden"; window.scrollTo(0, 0); return; }
+    start.style.display = "none";
+    sec.classList.add("show");
+    document.title = sec.querySelector("h2").textContent;
+    if (current !== sec) { setLevel(sec, m[2] ? parseInt(m[2], 10) : 0); window.scrollTo(0, 0); }
+    else if (m[2]) { setLevel(sec, Math.max(parseInt(m[2], 10), parseInt(sec.getAttribute("data-level") || "0", 10))); }
+    current = sec;
+  }
+
+  sections.forEach(function (sec) {
+    setLevel(sec, 0);
+    sec.querySelector(".btn").addEventListener("click", function () {
+      var n = Math.min(3, parseInt(sec.getAttribute("data-level") || "0", 10) + 1);
+      setLevel(sec, n);
+      try { history.replaceState(null, "", "#" + sec.id + "-hilfe-" + n); } catch (e) {}
+    });
+  });
+  window.addEventListener("hashchange", route);
+  route();
+})();
+</script>
+</body>
+</html>
